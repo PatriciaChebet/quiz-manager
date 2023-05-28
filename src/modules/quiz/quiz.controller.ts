@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, HttpCode, UsePipes, ValidationPipe } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/quiz.create.dto';
-import { Validate } from 'class-validator';
 
 @Controller('quiz')
 export class QuizController {
