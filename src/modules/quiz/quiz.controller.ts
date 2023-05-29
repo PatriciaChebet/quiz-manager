@@ -12,10 +12,10 @@ export class QuizController {
         return this.quizService.getAllQuiz();
     }
 
-    @Post('/')
+    @Post('/create')
     @UsePipes(ValidationPipe)
-    @HttpCode(200)
-    createQuiz(@Body() quizData : CreateQuizDto){
-        return {data: quizData};
+    @HttpCode(201)
+    async createQuiz(@Body() quizData : CreateQuizDto){
+        return await this.quizService.createNewQuiz(quizData);
     }
 }
