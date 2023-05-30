@@ -5,12 +5,14 @@ import { CreateOptionDto } from "../dto/create-option.dto";
 
 @Controller('/question/option')
 export class OptionController{
-    constructor(private optionService: OptionService, private questioService: QuestionService){}
+    constructor(private optionService: OptionService, private questionService: QuestionService){}
 
     @Post('')
     @UsePipes(ValidationPipe)
-    SaveOptionToQuestion(@Body() createOption: CreateOptionDto){
-        return createOption;
+    async SaveOptionToQuestion(@Body() createOption: CreateOptionDto){
+        const question = await this.questionService.findQuestionById(createOption.questionId);
+        const option = await this.optionService.createOption(createOption, question);
+        return {question, option, createOption};
     }
 
 
