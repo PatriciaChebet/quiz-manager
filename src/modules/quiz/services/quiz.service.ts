@@ -9,8 +9,10 @@ export class QuizService {
 
     constructor(private quizRepository: QuizRepository){}
 
-    getAllQuiz(){
-        return [2, 6, 8, "From service"];
+    async getAllQuiz(): Promise<Quiz[]> {
+        return await this.quizRepository.createQueryBuilder('q')
+        .leftJoinAndSelect('q.questions', 'qt')
+        .getMany()
     }
 
     async getQuizById(id: number): Promise<Quiz> {
